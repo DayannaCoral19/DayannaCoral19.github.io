@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visítanos - Daycor SAS | Ipiales, Nariño</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A5F7A;
+            --secondary: #FF9F29;
+            --light: #F8F9FA;
+            --dark: #2C3333;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+        }
+        
+        .contact-hero {
+            background: linear-gradient(rgba(26, 95, 122, 0.8), rgba(26, 95, 122, 0.9)), url('../img/bg-contact.jpg') center/cover;
+            color: white;
+            padding: 100px 0;
+        }
+        
+        .contact-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(26, 95, 122, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        
+        .contact-icon i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(26, 95, 122, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background-color: #134a63;
+            border-color: #134a63;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (Consistente con el resto del sitio) -->
+    <header class="bg-gradient-primary py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center text-lg-start">
+                    <a href="index.html">
+                        <img src="img/logo-daycor-white.png" alt="Daycor SAS" width="180">
+                    </a>
+                </div>
+                <div class="col-lg-8 text-center text-lg-end mt-3 mt-lg-0">
+                    <div class="d-inline-flex align-items-center contact-info">
+                        <i class="bi bi-geo-alt-fill me-2"></i>
+                        <span>Calle 13 #7-54, Centro - Ipiales, Nariño</span>
+                    </div>
+                    <div class="d-inline-flex align-items-center contact-info ms-3">
+                        <i class="bi bi-telephone-fill me-2"></i>
+                        <span>314 8766879</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDaycor">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarDaycor">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalogo.html">
+                            <i class="bi bi-box-seam me-1"></i> Catálogo
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contacto.html">
+                            <i class="bi bi-geo-alt me-1"></i> Visítanos
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="login.html" class="btn btn-outline-light">
+                        <i class="bi bi-person me-1"></i> Ingresar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="contact-hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Visítanos en Ipiales</h1>
+            <p class="lead mb-4">Ven a conocer nuestra tienda física en el centro de la ciudad</p>
+            <a href="#mapa" class="btn btn-light btn-lg">
+                <i class="bi bi-map me-2"></i> Ver en mapa
+            </a>
+        </div>
+    </section>
+
+    <!-- Información de Contacto -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="contact-card text-center p-4 h-100">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h3>Ubicación</h3>
+                        <p>Calle 13 #7-54, Centro<br>Ipiales, Nariño<br>(Frente al local de Claro)</p>
+                        <a href="https://maps.google.com/?q=Calle+13+%237-54,+Ipiales" target="_blank" class="btn btn-outline-primary mt-3">
+                            <i class="bi bi-arrow-up-right-circle me-1"></i> Abrir en Maps
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="contact-card text-center p-4 h-100">
+                        <div class="contact-icon">
+                            <i class="bi bi-clock-fill"></i>
+                        </div>
+                        <h3>Horario</h3>
+                        <p>Lunes a Viernes: 8:00 AM - 7:00 PM<br>
+                           Sábados: 9:00 AM - 2:00 PM<br>
+                           Domingos: Cerrado</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="contact-card text-center p-4 h-100">
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <h3>Contacto</h3>
+                        <p>Teléfono: 314 8766879<br>
+                           WhatsApp: +57 314 8766879<br>
+                           Email: info@daycorsas.com</p>
+                        <a href="https://wa.me/573148766879" target="_blank" class="btn btn-outline-success mt-3">
+                            <i class="bi bi-whatsapp me-1"></i> Escribir por WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa y Formulario -->
+    <section class="py-5 bg-light" id="mapa">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Encuéntranos fácilmente</h2>
+                    <div class="map-container ratio ratio-16x9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.615724379027!2d-77.6487879246836!3d0.8288998999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e2a6c9e5e5e5e5f%3A0x5e5e5e5e5e5e5e5e!2sCalle%2013%20%237-54%2C%20Ipiales%2C%20Nari%C3%B1o!5e0!3m2!1ses!2sco!4v1620000000000!5m2!1ses!2sco" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Indicaciones:</h4>
+                        <p>Estamos ubicados en el centro de Ipiales, frente al local de Claro. A solo 2 cuadras del parque principal.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-card p-4 h-100">
+                        <h2 class="mb-4">Envíanos un mensaje</h2>
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono">
+                            </div>
+                            <div class="mb-3">
+                                <label for="asunto" class="form-label">Asunto</label>
+                                <select class="form-select" id="asunto" required>
+                                    <option value="" selected disabled>Seleccione un asunto</option>
+                                    <option value="cotizacion">Cotización</option>
+                                    <option value="pqrs">PQRS</option>
+                                    <option value="general">Consulta general</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="bi bi-send me-2"></i> Enviar mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="img/logo-daycor-white.png" alt="Daycor SAS" class="mb-3" width="150">
+                    <p>La papelería líder en Ipiales, Nariño. Calidad y servicio desde 2010.</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-whatsapp fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3">Horario de atención</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i> Lunes a Viernes: 8:00 AM - 7:00 PM</li>
+                        <li class="mb-2"><i class="bi bi-clock me-2"></i> Sábados: 9:00 AM - 2:00 PM</li>
+                        <li><i class="bi bi-clock me-2"></i> Domingos: Cerrado</li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+                            Calle 13 #7-54, Centro - Ipiales, Nariño
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-telephone-fill me-2"></i>
+                            314 8766879
+                        </li>
+                        <li>
+                            <i class="bi bi-envelope-fill me-2"></i>
+                            info@daycorsas.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0 small">&copy; 2023 Daycor SAS. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Validación del formulario
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validación simple
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const asunto = document.getElementById('asunto').value;
+            
+            if(nombre && email && asunto) {
+                // Simular envío
+                alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+                this.reset();
+            } else {
+                alert('Por favor completa todos los campos requeridos.');
+            }
+        });
+    </script>
+</body>
+</html>

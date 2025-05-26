@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Ventas - Daycor Sas</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Barra de navegación para vendedores -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/logo-daycor-white.png" alt="Daycor Sas" height="30">
+                <span class="ms-2">Ventas</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="ventas.html">Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-clientes.html">Clientes</a>
+                    </li>
+                    <li class="nav-item admin-only">
+                        <a class="nav-link" href="#">Reportes</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i> <span class="user-name"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Salir</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container-fluid px-0">
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-2 bg-light sidebar">
+                <div class="p-3">
+                    <h5 class="mb-3">Opciones de venta</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="bi bi-cart-plus me-2"></i> Nueva venta
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-search me-2"></i> Buscar ventas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-arrow-left-right me-2"></i> Devoluciones
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-percent me-2"></i> Descuentos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-file-earmark-text me-2"></i> Facturación
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="my-3">
+
+                    <h5 class="mb-3">Estadísticas</h5>
+                    <div class="card mb-3 border-0 shadow-sm">
+                        <div class="card-body p-2">
+                            <h6 class="card-title">Ventas hoy</h6>
+                            <p class="card-text fw-bold" id="ventasHoy">$1,250,000</p>
+                        </div>
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-2">
+                            <h6 class="card-title">Meta mensual</h6>
+                            <div class="progress mb-2" style="height: 10px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <p class="card-text small" id="metaMensual">$15,800,000 / $25,000,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Área principal -->
+            <div class="col-lg-10 px-4 py-3">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">Nueva venta</h2>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-secondary me-2" id="imprimirBtn">
+                            <i class="bi bi-printer"></i> Imprimir
+                        </button>
+                        <button class="btn btn-primary" id="guardarVentaBtn">
+                            <i class="bi bi-save"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Información del cliente -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Información del cliente</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="clienteBusqueda" class="form-label">Buscar cliente</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="clienteBusqueda" placeholder="Nombre, documento o teléfono">
+                                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#buscarClienteModal">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="clienteNombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="clienteNombre" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="clienteDocumento" class="form-label">Documento</label>
+                                    <input type="text" class="form-control" id="clienteDocumento" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="clienteDireccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="clienteDireccion" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="clienteTelefono" class="form-label">Teléfono</label>
+                                    <input type="text" class="form-control" id="clienteTelefono" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="clienteEmail" class="form-label">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="clienteEmail" readonly>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nuevoClienteModal">
+                                        <i class="bi bi-plus-circle"></i> Crear nuevo cliente
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista de productos -->
+                    <div class="col-md-8">
+                        <div class="card shadow-sm mb-4">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Productos</h5>
+                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
+                                        <i class="bi bi-plus"></i> Agregar producto
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0" id="productosTable">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>P. Unitario</th>
+                                                <th>Descuento</th>
+                                                <th>Subtotal</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="productosBody">
+                                            <!-- Los productos se agregarán aquí dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resumen de la venta -->
+                        <div class="card shadow-sm">
+                            <div class="card-header bg-white">
+                                <h5 class="mb-0">Resumen de la venta</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tipoVenta" class="form-label">Tipo de venta *</label>
+                                        <select class="form-select" id="tipoVenta" required>
+                                            <option value="contado">Contado</option>
+                                            <option value="credito">Crédito</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="formaPago" class="form-label">Forma de pago *</label>
+                                        <select class="form-select" id="formaPago" required>
+                                            <option value="efectivo">Efectivo</option>
+                                            <option value="tarjeta">Tarjeta</option>
+                                            <option value="transferencia">Transferencia</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3" id="creditoFields" style="display: none;">
+                                    <div class="col-md-6">
+                                        <label for="diasCredito" class="form-label">Días de crédito *</label>
+                                        <input type="number" class="form-control" id="diasCredito" min="1" value="30">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="fechaVencimiento" class="form-label">Fecha de vencimiento *</label>
+                                        <input type="date" class="form-control" id="fechaVencimiento">
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Subtotal</th>
+                                                <td class="text-end" id="subtotal">$0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Descuentos</th>
+                                                <td class="text-end" id="descuentos">$0</td>
+                                            </tr>
+                                            <tr>
+                                                <th>IVA (19%)</th>
+                                                <td class="text-end" id="iva">$0</td>
+                                            </tr>
+                                            <tr class="table-active">
+                                                <th>TOTAL</th>
+                                                <td class="text-end fw-bold" id="total">$0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button class="btn btn-primary" id="finalizarVentaBtn">
+                                        <i class="bi bi-check-circle"></i> Finalizar venta
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Buscar Cliente -->
+    <div class="modal fade" id="buscarClienteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Buscar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="busquedaClienteInput" placeholder="Buscar por nombre, documento o teléfono">
+                            <button class="btn btn-primary" type="button" id="buscarClienteBtn">Buscar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Documento</th>
+                                    <th>Nombre</th>
+                                    <th>Teléfono</th>
+                                    <th>Dirección</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="clientesModalBody">
+                                <!-- Los clientes se cargarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nuevo Cliente -->
+    <div class="modal fade" id="nuevoClienteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear nuevo cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formNuevoCliente">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteTipoDoc" class="form-label">Tipo de documento *</label>
+                                <select class="form-select" id="nuevoClienteTipoDoc" required>
+                                    <option value="" selected disabled>Seleccione</option>
+                                    <option value="cc">Cédula de ciudadanía</option>
+                                    <option value="ce">Cédula de extranjería</option>
+                                    <option value="nit">NIT</option>
+                                    <option value="pasaporte">Pasaporte</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteNumDoc" class="form-label">Número de documento *</label>
+                                <input type="text" class="form-control" id="nuevoClienteNumDoc" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteNombre" class="form-label">Nombres *</label>
+                                <input type="text" class="form-control" id="nuevoClienteNombre" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteApellido" class="form-label">Apellidos *</label>
+                                <input type="text" class="form-control" id="nuevoClienteApellido" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteTelefono" class="form-label">Teléfono *</label>
+                                <input type="tel" class="form-control" id="nuevoClienteTelefono" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteEmail" class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="nuevoClienteEmail">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteDepartamento" class="form-label">Departamento *</label>
+                                <select class="form-select" id="nuevoClienteDepartamento" required>
+                                    <option value="" selected disabled>Seleccione</option>
+                                    <option value="bogota">Bogotá D.C.</option>
+                                    <option value="antioquia">Antioquia</option>
+                                    <option value="valle">Valle del Cauca</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="nuevoClienteCiudad" class="form-label">Ciudad *</label>
+                                <select class="form-select" id="nuevoClienteCiudad" required>
+                                    <option value="" selected disabled>Seleccione</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="nuevoClienteDireccion" class="form-label">Dirección *</label>
+                            <input type="text" class="form-control" id="nuevoClienteDireccion" required>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="nuevoClientePolitica" required>
+                            <label class="form-check-label" for="nuevoClientePolitica">Acepto la política de tratamiento de datos personales *</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="guardarClienteBtn">Guardar cliente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Agregar Producto -->
+    <div class="modal fade" id="agregarProductoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Agregar producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="busquedaProductoInput" placeholder="Buscar producto por código o nombre">
+                            <button class="btn btn-primary" type="button" id="buscarProductoBtn">Buscar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Stock</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="productosModalBody">
+                                <!-- Los productos se cargarán aquí dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts personalizados -->
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Datos de ejemplo (en un sistema real esto vendría de una API)
+        const productos = [
+            { id: 1, codigo: "PROD-001", nombre: "Cuaderno Norma 100 hojas", precio: 10800, stock: 120 },
+            { id: 2, codigo: "PROD-002", nombre: "Esferos Bic x12", precio: 25000, stock: 85 },
+            { id: 3, codigo: "PROD-003", nombre: "Resma de papel bond", precio: 18500, stock: 45 },
+            { id: 4, codigo: "PROD-004", nombre: "Archivador carta", precio: 32000, stock: 30 }
+        ];
+
+        // Carrito de productos
+        let productosCarrito = [];
+        let clienteSeleccionado = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar eventos
+            document.getElementById('tipoVenta').addEventListener('change', function() {
+                const creditoFields = document.getElementById('creditoFields');
+                if (this.value === 'credito') {
+                    creditoFields.style.display = 'flex';
+                    document.getElementById('diasCredito').required = true;
+                    document.getElementById('fechaVencimiento').required = true;
+                } else {
+                    creditoFields.style.display = 'none';
+                    document.getElementById('diasCredito').required = false;
+                    document.getElementById('fechaVencimiento').required = false;
+                }
+            });
+
+            document.getElementById('diasCredito').addEventListener('change', function() {
+                const dias = parseInt(this.value);
+                if (!isNaN(dias)) {
+                    const hoy = new Date();
+                    hoy.setDate(hoy.getDate() + dias);
+                    const fechaVencimiento = hoy.toISOString().split('T')[0];
+                    document.getElementById('fechaVencimiento').value = fechaVencimiento;
+                }
+            });
+
+            document.getElementById('buscarClienteBtn').addEventListener('click', buscarClientes);
+            document.getElementById('buscarProductoBtn').addEventListener('click', buscarProductos);
+            document.getElementById('guardarClienteBtn').addEventListener('click', guardarCliente);
+            document.getElementById('finalizarVentaBtn').addEventListener('click', finalizarVenta);
+            document.getElementById('guardarVentaBtn').addEventListener('click', guardarVenta);
+            document.getElementById('imprimirBtn').addEventListener('click', imprimirVenta);
+
+            // Cargar departamentos y ciudades
+            document.getElementById('nuevoClienteDepartamento').addEventListener('change', function() {
+                cargarCiudades(this.value, 'nuevoClienteCiudad');
+            });
+        });
+
+        function buscarClientes() {
+            const busqueda = document.getElementById('busquedaClienteInput').value.toLowerCase();
+            const tbody = document.getElementById('clientesModalBody');
+            tbody.innerHTML = '';
+
+            // Filtrar clientes (usando los mismos datos de admin-clientes.html)
+            const clientesFiltrados = clientes.filter(cliente => {
+                return !busqueda || 
+                       cliente.nombre.toLowerCase().includes(busqueda) || 
+                       cliente.numDoc.includes(busqueda) || 
+                       cliente.telefono.includes(busqueda);
+            });
+
+            // Mostrar resultados
+            clientesFiltrados.forEach(cliente => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${cliente.numDoc}</td>
+                    <td>${cliente.nombre}</td>
+                    <td>${cliente.telefono}</td>
+                    <td>${cliente.direccion}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary" onclick="seleccionarCliente(${cliente.id})">Seleccionar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function seleccionarCliente(id) {
+            const cliente = clientes.find(c => c.id === id);
+            if (cliente) {
+                clienteSeleccionado = cliente;
+                
+                // Llenar información del cliente
+                document.getElementById('clienteNombre').value = cliente.nombre;
+                document.getElementById('clienteDocumento').value = cliente.numDoc;
+                document.getElementById('clienteDireccion').value = cliente.direccion;
+                document.getElementById('clienteTelefono').value = cliente.telefono;
+                document.getElementById('clienteEmail').value = cliente.email || '';
+                
+                // Cerrar modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('buscarClienteModal'));
+                modal.hide();
+            }
+        }
+
+        function buscarProductos() {
+            const busqueda = document.getElementById('busquedaProductoInput').value.toLowerCase();
+            const tbody = document.getElementById('productosModalBody');
+            tbody.innerHTML = '';
+
+            // Filtrar productos
+            const productosFiltrados = productos.filter(producto => {
+                return !busqueda || 
+                       producto.nombre.toLowerCase().includes(busqueda) || 
+                       producto.codigo.toLowerCase().includes(busqueda);
+            });
+
+            // Mostrar resultados
+            productosFiltrados.forEach(producto => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${producto.codigo}</td>
+                    <td>${producto.nombre}</td>
+                    <td>${formatCurrency(producto.precio)}</td>
+                    <td>${producto.stock}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary" onclick="agregarProducto(${producto.id})">Agregar</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function agregarProducto(id) {
+            const producto = productos.find(p => p.id === id);
+            if (producto) {
+                // Verificar si ya está en el carrito
+                const productoEnCarrito = productosCarrito.find(p => p.id === id);
+                
+                if (productoEnCarrito) {
+                    productoEnCarrito.cantidad += 1;
+                } else {
+                    productosCarrito.push({
+                        ...producto,
+                        cantidad: 1,
+                        descuento: 0
+                    });
+                }
+                
+                // Actualizar tabla
+                actualizarTablaProductos();
+                
+                // Cerrar modal si se desea
+                const modal = bootstrap.Modal.getInstance(document.getElementById('agregarProductoModal'));
+                modal.hide();
+            }
+        }
+
+        function actualizarTablaProductos() {
+            const tbody = document.getElementById('productosBody');
+            tbody.innerHTML = '';
+            
+            productosCarrito.forEach(producto => {
+                const subtotal = producto.precio * producto.cantidad * (1 - producto.descuento / 100);
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${producto.codigo}</td>
+                    <td>${producto.nombre}</td>
+                    <td>
+                        <input type="number" class="form-control form-control-sm cantidad-producto" 
+                               value="${producto.cantidad}" min="1" max="${producto.stock}" 
+                               data-id="${producto.id}" style="width: 70px;">
+                    </td>
+                    <td>${formatCurrency(producto.precio)}</td>
+                    <td>
+                        <input type="number" class="form-control form-control-sm descuento-producto" 
+                               value="${producto.descuento}" min="0" max="100" 
+                               data-id="${producto.id}" style="width: 70px;">%
+                    </td>
+                    <td>${formatCurrency(subtotal)}</td>
+                    <td class="text-end">
+                        <button class="btn btn-sm btn-outline-danger" onclick="eliminarProducto(${producto.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            // Configurar eventos para cambios en cantidad y descuento
+            document.querySelectorAll('.cantidad-producto').forEach(input => {
+                input.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const producto = productosCarrito.find(p => p.id === id);
+                    if (producto) {
+                        producto.cantidad = parseInt(this.value);
+                        actualizarTablaProductos();
+                        actualizarResumen();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.descuento-producto').forEach(input => {
+                input.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    const producto = productosCarrito.find(p => p.id === id);
+                    if (producto) {
+                        producto.descuento = parseInt(this.value);
+                        actualizarTablaProductos();
+                        actualizarResumen();
+                    }
+                });
+            });
+            
+            // Actualizar resumen
+            actualizarResumen();
+        }
+
+        function eliminarProducto(id) {
+            productosCarrito = productosCarrito.filter(p => p.id !== id);
+            actualizarTablaProductos();
+        }
+
+        function actualizarResumen() {
+            const subtotal = productosCarrito.reduce((total, producto) => {
+                return total + (producto.precio * producto.cantidad);
+            }, 0);
+            
+            const descuentos = productosCarrito.reduce((total, producto) => {
+                return total + (producto.precio * producto.cantidad * producto.descuento / 100);
+            }, 0);
+            
+            const iva = (subtotal - descuentos) * 0.19;
+            const total = subtotal - descuentos + iva;
+            
+            document.getElementById('subtotal').textContent = formatCurrency(subtotal);
+            document.getElementById('descuentos').textContent = formatCurrency(descuentos);
+            document.getElementById('iva').textContent = formatCurrency(iva);
+            document.getElementById('total').textContent = formatCurrency(total);
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP'
+            }).format(amount);
+        }
+
+        function guardarCliente() {
+            // Validar formulario
+            const form = document.getElementById('formNuevoCliente');
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                return;
+            }
+            
+            // Crear nuevo cliente
+            const nuevoCliente = {
+                id: clientes.length + 1,
+                tipoDoc: document.getElementById('nuevoClienteTipoDoc').value,
+                numDoc: document.getElementById('nuevoClienteNumDoc').value,
+                nombre: `${document.getElementById('nuevoClienteNombre').value} ${document.getElementById('nuevoClienteApellido').value}`,
+                tipoPersona: 'natural',
+                telefono: document.getElementById('nuevoClienteTelefono').value,
+                ciudad: document.getElementById('nuevoClienteCiudad').value,
+                ultimaCompra: new Date().toLocaleDateString('es-CO'),
+                totalCompras: 0,
+                activo: true,
+                email: document.getElementById('nuevoClienteEmail').value,
+                direccion: document.getElementById('nuevoClienteDireccion').value,
+                departamento: document.getElementById('nuevoClienteDepartamento').value,
+                newsletter: true
+            };
+            
+            // Agregar a la lista
+            clientes.push(nuevoCliente);
+            
+            // Seleccionar automáticamente el nuevo cliente
+            seleccionarCliente(nuevoCliente.id);
+            
+            // Cerrar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('nuevoClienteModal'));
+            modal.hide();
+            
+            // Mostrar mensaje de éxito
+            alert('Cliente creado y seleccionado exitosamente');
+        }
+
+        function cargarCiudades(departamento, selectId) {
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="" selected disabled>Seleccione</option>';
+            
+            if (departamento === 'bogota') {
+                select.innerHTML += '<option value="bogota">Bogotá D.C.</option>';
+            } else if (departamento === 'antioquia') {
+                select.innerHTML += '<option value="medellin">Medellín</option>';
+                select.innerHTML += '<option value="bello">Bello</option>';
+                select.innerHTML += '<option value="envigado">Envigado</option>';
+            } else if (departamento === 'valle') {
+                select.innerHTML += '<option value="cali">Cali</option>';
+                select.innerHTML += '<option value="palmira">Palmira</option>';
+                select.innerHTML += '<option value="tulua">Tuluá</option>';
+            }
+        }
+
+        function finalizarVenta() {
+            if (!clienteSeleccionado) {
+                alert('Por favor seleccione un cliente');
+                return;
+            }
+            
+            if (productosCarrito.length === 0) {
+                alert('Por favor agregue al menos un producto');
+                return;
+            }
+            
+            const tipoVenta = document.getElementById('tipoVenta').value;
+            const formaPago = document.getElementById('formaPago').value;
+            
+            if (tipoVenta === 'credito') {
+                const diasCredito = document.getElementById('diasCredito').value;
+                const fechaVencimiento = document.getElementById('fechaVencimiento').value;
+                
+                if (!diasCredito || !fechaVencimiento) {
+                    alert('Por favor complete los campos de crédito');
+                    return;
+                }
+            }
+            
+            // En un sistema real, aquí se guardaría la venta en la base de datos
+            const venta = {
+                id: Math.floor(Math.random() * 10000),
+                fecha: new Date().toLocaleString('es-CO'),
+                cliente: clienteSeleccionado,
+                productos: productosCarrito,
+                tipoVenta,
+                formaPago,
+                subtotal: parseFloat(document.getElementById('subtotal').textContent.replace(/[^0-9.-]+/g,"")),
+                descuentos: parseFloat(document.getElementById('descuentos').textContent.replace(/[^0-9.-]+/g,"")),
+                iva: parseFloat(document.getElementById('iva').textContent.replace(/[^0-9.-]+/g,"")),
+                total: parseFloat(document.getElementById('total').textContent.replace(/[^0-9.-]+/g,""))
+            };
+            
+            console.log('Venta finalizada:', venta);
+            alert('Venta finalizada exitosamente');
+            
+            // Limpiar formulario
+            productosCarrito = [];
+            clienteSeleccionado = null;
+            document.getElementById('clienteNombre').value = '';
+            document.getElementById('clienteDocumento').value = '';
+            document.getElementById('clienteDireccion').value = '';
+            document.getElementById('clienteTelefono').value = '';
+            document.getElementById('clienteEmail').value = '';
+            document.getElementById('tipoVenta').value = 'contado';
+            document.getElementById('formaPago').value = 'efectivo';
+            document.getElementById('creditoFields').style.display = 'none';
+            actualizarTablaProductos();
+        }
+
+        function guardarVenta() {
+            alert('Venta guardada como borrador');
+        }
+
+        function imprimirVenta() {
+            alert('Imprimiendo factura...');
+            // En un sistema real, esto generaría un PDF o abriría el diálogo de impresión
+        }
+    </script>
+</body>
+</html>
